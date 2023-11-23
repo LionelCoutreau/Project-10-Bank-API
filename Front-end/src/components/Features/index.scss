@@ -1,0 +1,10 @@
+@import '../../styles/abstracts/mixins';
+
+.features {
+    display: flex;
+    flex-direction: column;
+
+    @include tablet-device {
+        flex-direction: row;
+    }
+}
