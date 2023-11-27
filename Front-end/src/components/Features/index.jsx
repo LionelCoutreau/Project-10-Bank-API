@@ -7,7 +7,7 @@ const Features = () => {
     return (
         <section className="features">
             <h2 className="sr-only">Features</h2>
-            {features.forEach(feature => {
+            {features.map((feature) => {
                 return (
                     <FeatureItem key={feature.id} featureObj={feature} />
                 )
