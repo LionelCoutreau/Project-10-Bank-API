@@ -7,14 +7,14 @@ import './index.scss';
 
 const Homepage = () => {
     return (
-        <>
-            <Header userConnected="false" />
-            <main>
+        <div className="wrapper">
+            <Header userConnected={false} />
+            <main className="main">
                 <Hero />
                 <Features />
             </main>
             <Footer />
-        </>
+        </div>
     )
 }
 

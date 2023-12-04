@@ -10,3 +10,47 @@
     font-weight: bold;
     padding: 10px;
 }
+
+.info_input_box {
+    display: flex;
+    gap: 12px;
+}
+
+.info_input {
+    border-radius: 4px;
+    padding: 12px;
+    border: 2px solid gray;
+    color: gray;
+    font-weight: bold;
+}
+
+.info_box_left {
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+}
+
+.info_box_right {
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+}
+
+.info_button {
+    background-color: white;
+    border: 2px solid #00bc77;
+    border-radius: 4px;
+    padding: 8px 22px;
+    color: #00bc77;
+    font-size: medium;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.button_left{
+    margin-left: auto;
+}
+
+.button_right{
+    margin-right: auto;
+}

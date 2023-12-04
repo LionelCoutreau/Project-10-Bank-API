@@ -4,12 +4,13 @@ import Signin from '../pages/Signin'
 import User from '../pages/User'
 
 const AppRouter = () => {
+    // <Route path='/user/:userid' element={<User />} />
     return (
         <BrowserRouter>
             <Routes>
                 <Route exact path='/' element={<Homepage />} />
-                <Route path='/signin' element={<Signin />} />
-                <Route path='/user/:userid' element={<User />} />
+                <Route path='/login' element={<Signin />} />
+                <Route path='/profile' element={<User />} />
             </Routes>
         </BrowserRouter>
 )

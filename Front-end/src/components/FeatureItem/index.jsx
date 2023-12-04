@@ -1,7 +1,6 @@
 import './index.scss';
 
 const FeatureItem = ({ featureObj }) => {
-    console.log(featureObj)
     return (
         <div className="feature-item">
             <img src={`./assets/${featureObj.icon}`} alt={featureObj.iconAlt} className="feature-icon" />

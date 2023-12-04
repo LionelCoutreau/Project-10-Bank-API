@@ -6,13 +6,13 @@ import './index.scss';
 
 const User = () => {
     return (
-        <>
-            <Header userConnected="true" />
+        <div className="wrapper">
+            <Header userConnected={true} />
             <main className="main bg-dark">
                 <Accounts />
             </main>
             <Footer />
-        </>
+        </div>
     )
 }
 
