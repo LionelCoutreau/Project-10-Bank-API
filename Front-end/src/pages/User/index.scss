@@ -1,0 +1,18 @@
+@import '../../styles/abstracts/variables';
+@import '../../styles/abstracts/mixins';
+
+.wrapper {
+    @include content-wrapper;
+}
+
+.main {
+    flex:1;
+}
+
+.bg-dark {
+    background-color: $color-bg-dark;
+}
+
+.sr-only {
+    @include sr-only;
+}

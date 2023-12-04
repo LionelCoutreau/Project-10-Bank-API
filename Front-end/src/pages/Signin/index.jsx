@@ -6,13 +6,13 @@ import './index.scss';
 
 const Signin = () => {
     return (
-        <>
-            <Header userConnected="false" />
+        <div className="wrapper">
+            <Header userConnected={false} />
             <main className="main bg-dark">
                 <SigninForm />
             </main>
             <Footer />
-        </>
+        </div>
     )
 }
 

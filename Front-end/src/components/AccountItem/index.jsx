@@ -1,6 +1,6 @@
 import './index.scss';
 
-const AccountItem = (accountTitle, accountAmount, accountCurrentBalance) => {
+const AccountItem = ({accountTitle, accountAmount, accountCurrentBalance}) => {
     return (
         <section className="account">
             <div className="account-content-wrapper">
