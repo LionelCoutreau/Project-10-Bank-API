@@ -12,7 +12,7 @@ const Nav = () => {
     const dispatch = useDispatch()
     const userConnected = localStorage.getItem("user")
 
-    const [firstname, setfirstname] = useState("")
+    const [firstName, setFirstName] = useState("")
 
     useEffect(() => {
         if (!userConnected) {
@@ -22,7 +22,7 @@ const Nav = () => {
             dispatch(getUserAccount()).then((userData) => {
                 if (userData) {
                     console.log(userData)
-                    setfirstname(userData.payload.body.firstName)
+                    setFirstName(userData.payload.body.firstName)
                 }
             });
         }
@@ -51,7 +51,7 @@ const Nav = () => {
                     ? <>
                         <NavLink className="main-nav-item" to="/profile">
                             <i className="fa fa-user-circle"></i>
-                            {firstname}
+                            {firstName}
                         </NavLink>
                         <NavLink className="main-nav-item" onClick={handleDisconnect} to="/login">
                             <i className="fa fa-sign-out"></i>
