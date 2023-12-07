@@ -1,9 +1,9 @@
-import { NavLink, useNavigate } from "react-router-dom";
-import logo from "../../assets/argentBankLogo.png";
-import { useEffect, useState } from "react";
-import { logOutUser } from "../../Store/userlogin";
-import { useDispatch } from "react-redux";
-import { getUserAccount } from "../../Store/useraccount";
+import { NavLink, useNavigate } from "react-router-dom"
+import logo from "../../assets/argentBankLogo.png"
+import { useEffect, useState } from "react"
+import { logOutUser } from "../../Store/userlogin"
+import { useDispatch } from "react-redux"
+import { getUserAccount } from "../../Store/useraccount"
 
 import './index.scss';
 
@@ -15,10 +15,7 @@ const Nav = () => {
     const [firstName, setFirstName] = useState("")
 
     useEffect(() => {
-        if (!userConnected) {
-            console.log("redirect to login")
-            navigate("/login")
-        } else {
+        if (userConnected) {
             dispatch(getUserAccount()).then((userData) => {
                 if (userData) {
                     console.log(userData)
@@ -26,7 +23,7 @@ const Nav = () => {
                 }
             });
         }
-    }, [navigate, dispatch])
+    }, [userConnected, navigate, dispatch])
 
     const handleDisconnect = () => {
         // Appelez logOutUser à l'aide de dispatch

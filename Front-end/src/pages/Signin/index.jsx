@@ -7,7 +7,7 @@ import './index.scss';
 const Signin = () => {
     return (
         <div className="wrapper">
-            <Header userConnected={false} />
+            <Header />
             <main className="main bg-dark">
                 <SigninForm />
             </main>

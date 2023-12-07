@@ -2,10 +2,10 @@ import Nav from '../Nav'
 
 import './index.scss';
 
-const Header = ({ userConnected }) => {
+const Header = () => {
     return (
         <header>
-            <Nav userConnected={userConnected} />
+            <Nav />
         </header>
     )
 }

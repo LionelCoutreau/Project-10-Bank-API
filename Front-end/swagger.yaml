@@ -1,0 +1,231 @@
+openapi: 3.0.3
+info:
+  title: "Argent Bank API Endpoint"
+  description: "Contains all endpoints about transactions"
+  termsOfService: "http://swagger.io/terms/"
+  version: 1.0.11
+servers:
+  - url: "localhost:3001/api/v1"
+tags:
+  - name: "Transactions"
+    description: "Operations on transactions"
+paths:
+  /transactions:
+    get:
+      tags:
+        - transactions
+      summary: "Displays a list of all transactions for the last month"
+      description: ""
+      security:
+        - Bearer: []
+      responses:
+        '200':
+          description: "List of transactions retrieved successfully"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: '#/components/schemas/ApiResponse'          
+        '500':
+          description: "Internal Server Error"
+  /transactions/{transactionId}:        
+    get:
+      tags:
+        - transactions
+      summary: "Fetches details for a specific transaction"
+      description: ""
+      security:
+        - Bearer: []
+      parameters:
+        - name: "transactionId"
+          in: "path"
+          description: "ID of the transaction"
+          required: true
+          schema:
+            type: "number"
+      responses:
+        '200':
+          description: "Details of the transaction"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transaction'        
+        '404':
+          description: "Transaction not found"
+        '500':
+          description: "Internal Server Error" 
+    put:
+      tags:
+        - transactions
+      summary: "Create a new transaction"
+      description: ""
+      requestBody:
+        description: "Details of the created translation"
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Transaction"
+      parameters:
+      - name: "transactionId"
+        in: "path"
+        description: "ID of the transaction"
+        required: true
+        schema:
+          type: "number"
+      - name: categoryId
+        in: "query"
+        description: "ID of the category (optional)"
+        required: false
+        schema:
+          type: "number"
+      - name: note
+        in: "query"
+        description: "Note (optional)"
+        required: false
+        schema:
+          type: "string"
+      responses:
+        200:
+          description: "Transaction created successfully"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transaction' 
+        400:
+          description: "Invalid value"
+        404:
+          description: "Transaction not found"
+        500:
+          description: "Internal Server Error"
+      security:
+        - Bearer: []
+          
+          
+    patch:
+      tags:
+        - transactions
+      summary: "Updates the details of a specified transaction"
+      description: ""
+      requestBody:
+        description: "Updated details"
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Transaction"
+      parameters:
+      - name: "transactionId"
+        in: "path"
+        description: "ID of the transaction"
+        required: true
+        schema:
+          type: "number"
+      - name: categoryId
+        in: "query"
+        description: "ID of the category (optional)"
+        required: false
+        schema:
+          type: "number"
+      - name: note
+        in: "query"
+        description: "Note (optional)"
+        required: false
+        schema:
+          type: "string"
+      responses:
+        200:
+          description: "Details of the transaction updated successfully"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transaction' 
+        400:
+          description: "Invalid value"
+        404:
+          description: "Transaction not found"
+        500:
+          description: "Internal Server Error"
+      security:
+        - Bearer: []
+    delete:
+      tags:
+      - "transactions"
+      summary: "Deletes a specific transaction"
+      description: ""
+      parameters:
+      - name: "transactionId"
+        in: "path"
+        description: "ID of the transaction"
+        required: true
+        schema:
+          type: "number"
+      responses:
+        200:
+          description: "Details of the transaction deleted successfully"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transaction' 
+        404:
+          description: "Transaction not found"
+        500:
+          description: "Internal Server Error"
+      security:
+      - Bearer: []
+      
+components:
+  securitySchemes :
+    Bearer:
+      type: "apiKey"
+      name: "Authorization"
+      in: "header"
+  schemas:
+    ApiResponse:
+      type: "object"
+      properties:
+        id:
+          type: "number"
+        title:
+          type: "string"
+        amount:
+          type: "number"
+        description:
+          type: "string"
+    Transaction:
+      type: "object"
+      required:
+      - "id"
+      - "account"
+      - "date"
+      - "amount"
+      properties:
+        id:
+          type: "number"
+        account:
+          type: "string"
+        date:
+          type: "string"
+          format: "DD/MM/YY"
+        description:
+          type: "string"
+        transactionType:
+          type: "string"
+        category:
+          type: "string"
+        note: 
+          type: "string"
+        amount:
+          type: "number"
+        balance:
+          type: "number"
+    

@@ -8,7 +8,7 @@ import './index.scss';
 const Homepage = () => {
     return (
         <div className="wrapper">
-            <Header userConnected={false} />
+            <Header />
             <main className="main">
                 <Hero />
                 <Features />
