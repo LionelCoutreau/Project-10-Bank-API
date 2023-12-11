@@ -8,7 +8,6 @@ const store = configureStore({
         userAccount: userAccountReducer,
         userUpdate : userUpdateReducer,
     }
-
 })
 
 export default store;

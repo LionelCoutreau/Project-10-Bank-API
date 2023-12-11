@@ -42,13 +42,13 @@ const LoginSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
         state.isAuthenticated = true;
-        state.user = action.payload;
+        state.user = action.payload
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
         state.user = null;
         if (action.error.message === "Request failed with status code 400") {
-          state.error = "Access Debied! Invalid Personnal information";
+          state.error = "Access Denied! Invalid Personnal information";
         } else {
           state.error = action.error.message;
         }

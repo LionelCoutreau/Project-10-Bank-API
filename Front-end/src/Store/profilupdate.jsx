@@ -12,11 +12,12 @@ axios.interceptors.request.use((config) => {
 export const profilupdate = createAsyncThunk(
   "user/update",
   async (UpdateUser) => {
-    const request = await axios.put(
+    const response = await axios.put(
       `http://localhost:3001/api/v1/user/profile/`,
       UpdateUser
     );
-    return request.data;
+    console.log("RESPONSE:",response.data.body)
+    return response.data.body;
   }
 );
 
@@ -24,8 +25,13 @@ const profilupdateSlice = createSlice({
     name : "updateAccount",
     initialState : {
         loading : false,
-        userProfile : null,
+        userAccount : null,
         error : null,
+    },
+    reducers : {
+      updateUserData: (state, action) => {
+        state.userAccount = action.payload;
+      }
     },
     extraReducers : (builder) => {
         builder
@@ -35,7 +41,7 @@ const profilupdateSlice = createSlice({
 
         .addCase (profilupdate.fulfilled, (state, action) => {
             state.loading = false;
-            state.userProfile = action.payload
+            state.userAccount = action.payload
         })
         .addCase (profilupdate.rejected, (state, action) => {
             state.loading = false;
@@ -45,4 +51,5 @@ const profilupdateSlice = createSlice({
     }
 })
 
+export const { updateUserData } = profilupdateSlice.actions;
 export default profilupdateSlice.reducer

@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { getUserAccount } from "../../Store/useraccount"
-import { profilupdate } from "../../Store/profilupdate"
+import { profilupdate, updateUserData } from "../../Store/profilupdate"
 
 import AccountItem from '../AccountItem'
 
 import './index.scss';
 
-const Accounts = () => {
+const Accounts = ({onSave}) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const userConnected = localStorage.getItem("user")
-
+    const userAcc = useSelector((state) => state.userAccount.userAccount)
+    
     const [editMode, setEditMode] = useState(false)
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
@@ -26,14 +27,15 @@ const Accounts = () => {
         } else {
             dispatch(getUserAccount()).then((userData) => {
                 if (userData) {
-                    console.log(userData)
+                    //console.log("DATA:",userData)
                     setFirstName(userData.payload.body.firstName)
                     setLastName(userData.payload.body.lastName)
+                    setEditingFirstName(userData.payload.body.firstName)
+                    setEditingLastName(userData.payload.body.lastName)
                 }
             });
         }
     }, [userConnected, navigate, dispatch])
-
 
     const handleNewName = () => {
         // Créez un objet avec les nouvelles valeurs du prénom et du nom
@@ -46,10 +48,13 @@ const Accounts = () => {
         dispatch(profilupdate(updatedUser))
             .then(() => {
                 // La mise à jour a réussi, mettez à jour la variable d'état firstname
+                //dispatch(updateUserData())
+                //console.log("USERACCOUNT3:", userAcc)
                 setFirstName(editingFirstName)
                 setLastName(editingLastName)
                 console.log("Mise à jour réussie !")
                 setEditMode(false)
+                onSave();
             })
             .catch((error) => {
                 // La mise à jour a échoué, vous pouvez gérer les erreurs ici
@@ -64,6 +69,7 @@ const Accounts = () => {
         setEditMode(false)
     }
     //console.log(editMode)
+
     return (
         <>
             <div className="header">

@@ -1,41 +1,26 @@
 import { NavLink, useNavigate } from "react-router-dom"
 import logo from "../../assets/argentBankLogo.png"
-import { useEffect, useState } from "react"
 import { logOutUser } from "../../Store/userlogin"
-import { useDispatch } from "react-redux"
-import { getUserAccount } from "../../Store/useraccount"
+import { removeUserData } from "../../Store/useraccount";
+import { useDispatch, useSelector } from "react-redux"
 
 import './index.scss';
 
 const Nav = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const userConnected = localStorage.getItem("user")
+    const userAcc = useSelector((state) => state.userAccount.userAccount)
 
-    const [firstName, setFirstName] = useState("")
-
-    useEffect(() => {
-        if (userConnected) {
-            dispatch(getUserAccount()).then((userData) => {
-                if (userData) {
-                    console.log(userData)
-                    setFirstName(userData.payload.body.firstName)
-                }
-            });
-        }
-    }, [userConnected, navigate, dispatch])
+    //console.log("USERACCOUNT:", userAcc)
 
     const handleDisconnect = () => {
         // Appelez logOutUser à l'aide de dispatch
         dispatch(logOutUser())
-    
-        // Réinitialisez l'élément "user" du localStorage et isAuthenticated
-        localStorage.removeItem("user")
+        dispatch(removeUserData())
     
         // Redirigez l'utilisateur vers la page de connexion
         navigate("/login")
     };
-
 
     return (
         <nav className="main-nav">
@@ -44,11 +29,11 @@ const Nav = () => {
                 <h1 className="sr-only">Argent Bank</h1>
             </NavLink>
             <div>
-                {userConnected
+                {userAcc
                     ? <>
                         <NavLink className="main-nav-item" to="/profile">
                             <i className="fa fa-user-circle"></i>
-                            {firstName}
+                            {userAcc.firstName}
                         </NavLink>
                         <NavLink className="main-nav-item" onClick={handleDisconnect} to="/login">
                             <i className="fa fa-sign-out"></i>

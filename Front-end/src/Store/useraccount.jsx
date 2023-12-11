@@ -23,6 +23,11 @@ const userAccountSlice = createSlice({
     userAccount: null,
     error: null,
   },
+  reducers: {
+    removeUserData: (state) => {
+      state.userAccount = null;
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getUserAccount.pending, (state) => {
@@ -30,7 +35,7 @@ const userAccountSlice = createSlice({
       })
       .addCase(getUserAccount.fulfilled, (state, action) => {
         state.loading = false;
-        state.userAccount = action.payload;
+        state.userAccount = action.payload.body;
       })
 
       .addCase(getUserAccount.rejected, (state, action) => {
@@ -40,4 +45,5 @@ const userAccountSlice = createSlice({
   },
 });
 
+export const { removeUserData } = userAccountSlice.actions;
 export default userAccountSlice.reducer;
