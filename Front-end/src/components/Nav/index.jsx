@@ -11,14 +11,11 @@ const Nav = () => {
     const dispatch = useDispatch()
     const userAcc = useSelector((state) => state.userAccount.userAccount)
 
-    //console.log("USERACCOUNT:", userAcc)
-
+    // Déconnexion de l'utilisateur
     const handleDisconnect = () => {
-        // Appelez logOutUser à l'aide de dispatch
         dispatch(logOutUser())
         dispatch(removeUserData())
-    
-        // Redirigez l'utilisateur vers la page de connexion
+        // Redirection vers la page de connexion
         navigate("/login")
     };
 

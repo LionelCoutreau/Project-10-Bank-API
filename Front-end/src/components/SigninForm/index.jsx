@@ -9,30 +9,25 @@ const SigninForm = () => {
     const [email, setEmail] = useState('tony@stark.com');
     const [password, setPassword] = useState('password123');
 
-    const bDebug = false
-    let button
-    if (bDebug) {
-        button = <a href="./profile" className="sign-in-button">Sign In</a>
-    } else {
-        button = <button className="sign-in-button">Sign In</button>
-    }
-
     const dispatch = useDispatch();
     const navigate = useNavigate()
 
+    // Submit form
     const handleSignIn = (e) => {
-        e.preventDefault();
+        e.preventDefault()
         let userInfo = {
             email: email,
             password: password
         }
+        // connexion
         dispatch(loginUser(userInfo)).then((result) => {
-            if (result.payload) { // Vérifie le statut de la réponse
-                console.log("Connexion completed");
-                navigate('/profile');
+             // Vérification du statut de la réponse
+            if (result.payload) {
+                console.log("Connexion completed")
+                navigate('/profile')
             }
             else {
-                console.log("Connexion échouée");
+                console.log("Connexion échouée")
             }
         })
     }
@@ -51,7 +46,7 @@ const SigninForm = () => {
                 <div className="input-remember">
                     <input type="checkbox" id="remember-me" /><label htmlFor="remember-me" >Remember me</label >
                 </div>
-                {button}
+                <button className="sign-in-button">Sign In</button>
             </form>
         </section>
     )

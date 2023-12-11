@@ -4,7 +4,6 @@ import Signin from '../pages/Signin'
 import User from '../pages/User'
 
 const AppRouter = () => {
-    // <Route path='/user/:userid' element={<User />} />
     return (
         <BrowserRouter>
             <Routes>

@@ -1,19 +1,15 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
-import { getUserAccount } from "../../Store/useraccount"
-import { profilupdate, updateUserData } from "../../Store/profilupdate"
+import { useDispatch } from "react-redux"
+import { getUserAccount, profilupdate} from "../../Store/useraccount"
 
 import AccountItem from '../AccountItem'
-
 import './index.scss';
 
-const Accounts = ({onSave}) => {
+const Accounts = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const userConnected = localStorage.getItem("user")
-    const userAcc = useSelector((state) => state.userAccount.userAccount)
-    
     const [editMode, setEditMode] = useState(false)
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
@@ -27,48 +23,48 @@ const Accounts = ({onSave}) => {
         } else {
             dispatch(getUserAccount()).then((userData) => {
                 if (userData) {
-                    //console.log("DATA:",userData)
-                    setFirstName(userData.payload.body.firstName)
-                    setLastName(userData.payload.body.lastName)
-                    setEditingFirstName(userData.payload.body.firstName)
-                    setEditingLastName(userData.payload.body.lastName)
+                    // Initialisation du formulaire de changement de nom
+                    setFirstName(userData.payload.firstName)
+                    setLastName(userData.payload.lastName)
+                    setEditingFirstName(userData.payload.firstName)
+                    setEditingLastName(userData.payload.lastName)
                 }
             });
         }
     }, [userConnected, navigate, dispatch])
 
+    // Changement de nom
     const handleNewName = () => {
-        // Créez un objet avec les nouvelles valeurs du prénom et du nom
+        // création d'un objet avec les nouvelles valeurs du prénom et du nom
         const updatedUser = {
-            firstName: editingFirstName, // Utilisez la variable d'état editingFirstName
-            lastName: editingLastName // Utilisez la variable d'état editingFirstName
+            firstName: editingFirstName,
+            lastName: editingLastName
         };
         
-        // Appelez l'action asynchrone profilupdate avec les nouvelles données utilisateur
+        // Mise à jour des données avec les nouvelles données utilisateur
         dispatch(profilupdate(updatedUser))
             .then(() => {
-                // La mise à jour a réussi, mettez à jour la variable d'état firstname
-                //dispatch(updateUserData())
-                //console.log("USERACCOUNT3:", userAcc)
+                // Mise à jour des states firstName et lastName
                 setFirstName(editingFirstName)
                 setLastName(editingLastName)
                 console.log("Mise à jour réussie !")
+                // Masquage du formulaire de mise à jour de nom et prénom
                 setEditMode(false)
-                onSave();
             })
             .catch((error) => {
-                // La mise à jour a échoué, vous pouvez gérer les erreurs ici
+                // Mise à jour échouée
                 console.error("Erreur lors de la mise à jour :", error)
             })
     };
 
+    // Annulation du changement de nom
     const handleCancel = () => {
-        // Réinitialisez les variables d'état d'édition aux valeurs actuelles du prénom et du nom
+        // Remise à zéro des valeurs du formulaire
         setEditingFirstName(firstName)
         setEditingLastName(lastName)
+        // Masquage du formulaire de mise à jour de nom et prénom
         setEditMode(false)
     }
-    //console.log(editMode)
 
     return (
         <>
